@@ -51,17 +51,9 @@
 
                             // Source files to be concatenated ..
                             src: [
-
-                                // Library
-                                    $appPath+'/lib/*.js',
-
-                                // Application
-                                    $appPath+'/app.config.js',
-                                    $appPath+'/app.js',
-
-                                // Modules
-                                    $appPath+'/mdMenu.js',
-                                    $appPath+'/*.js',
+                                $appPath+'/lib/*.js',
+                                $appPath+'/mdMenu.js',
+                                $appPath+'/*.js',
                             ],
 
                             // The destination file to be concatenated ..
@@ -93,15 +85,8 @@
                     watch: {
                         scripts: {
                             files: [
-
-                                // Application
-                                    $appPath+'/app.config.js',
-                                    $appPath+'/app.js',
-
-                                // Modules
-                                    $appPath+'/mdMenu.js',
-                                    $appPath+'/*.js',
-
+                              $appPath+'/mdMenu.js',
+                              $appPath+'/*.js',
                             ],
                             tasks: $watchTasks,
                         },

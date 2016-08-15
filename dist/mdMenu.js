@@ -1,4 +1,150 @@
-﻿/**
+!function(n,t,e){"use strict";function a(n,e,a,u){o.directive(n,["$parse","swipe",function(o,c){var i=75,r=.3,s=30;return function(f,h,v){function l(n){if(!d||!p)return!1;var t=(n.y-d.y)*e,o=(n.x-d.x)*e;return a?Math.abs(o)<i&&t>0&&t>s&&Math.abs(o)/t<r:Math.abs(t)<i&&o>0&&o>s&&Math.abs(t)/o<r}var d,p,m=o(v[n]),w=["touch"];t.isDefined(v.ngSwipeDisableMouse)||w.push("mouse"),c.bind(h,{start:function(n,t){var e=t.target.getAttribute("class");a&&(!e||e&&null===e.match("noPreventDefault"))&&t.preventDefault(),d=n,p=!0},cancel:function(){p=!1},end:function(n,t){l(n)&&f.$apply(function(){h.triggerHandler(u),m(f,{$event:t})})}},w)}}])}var o=t.module("swipe",[]);o.factory("swipe",[function(){function n(n){var t=n.originalEvent||n,e=t.touches&&t.touches.length?t.touches:[t],a=t.changedTouches&&t.changedTouches[0]||e[0];return{x:a.clientX,y:a.clientY}}function e(n,e){var a=[];return t.forEach(n,function(n){var t=u[n][e];t&&a.push(t)}),a.join(" ")}var a=40,o=.3,u={mouse:{start:"mousedown",move:"mousemove",end:"mouseup"},touch:{start:"touchstart",move:"touchmove",end:"touchend",cancel:"touchcancel"}};return{bind:function(t,u,c){var i,r,s,f,h=!1,v=!1,l=!0;c=c||["mouse","touch"],t.on(e(c,"start"),function(t){s=n(t),h=!0,i=0,r=0,v=!1,l=!0,f=s,u.start&&u.start(s,t)}),t.on(e(c,"cancel"),function(n){h=!1,u.cancel&&u.cancel(n)}),t.on(e(c,"move"),function(t){if(h&&s){var e=n(t);if(i+=Math.abs(e.x-f.x),r+=Math.abs(e.y-f.y),f=e,!(a>i&&a>r)){if(!v){var c,d,p;c=Math.abs(e.x-s.x),d=Math.abs(e.y-s.y),p=d/c,o>p?(t.preventDefault(),l=!1):l=!0,v=!0}t.isVertical=l,u.move&&u.move(e,t)}}}),t.on(e(c,"end"),function(t){h&&(t.isVertical=l,h=!1,u.end&&u.end(n(t),t))})}}}]),a("ngSwipeUp",-1,!0,"swipeup"),a("ngSwipeDown",1,!0,"swipedown")}(window,window.angular);
+
+/**
+  * trim()
+  * -------------------------
+  * @desc: removes uneccesry white space from a string
+  * @type: (string)
+*/
+String.prototype.trim = function(){
+	return this.replace(/^\s+|\s+$/g, "");
+};
+
+
+/**
+  * toCamel()
+  * -------------------------
+  * @desc: converts string to camel case format
+  * @type: (string)
+*/
+String.prototype.toCamel = function(){
+	return this.replace(/(\-[a-z])/g, function($1){return $1.toUpperCase().replace('-','');});
+};
+
+
+/**
+  * toDash()
+  * -------------------------
+  * @desc: converts string from camel case to dashed format
+  * @type: (string)
+*/
+String.prototype.toDash = function(){
+	return this.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+};
+
+
+/**
+  * toUnderscore()
+  * -------------------------
+  * @desc: converts string from camel case to underscore format
+  * @type: (string)
+*/
+String.prototype.toUnderscore = function(){
+	return this.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+};
+
+/**
+  * fmMenu Module
+  * --------------------
+*/
+
+var mdMenu = angular.module('mdMenu', ['swipe']); 
+
+/**
+  * mdMenu configuration
+  * --------------------
+*/ 
+mdMenu.constant('CONFIG_mdMenu', { 
+  namespace: 'md-menu',
+  animation: {
+    duration: 400,
+    easing: 'easeInOutCubic',
+  },
+  init: {
+    open: false
+  },
+  clone: {
+    element: $('#nav-desktop'),
+  }
+});
+
+
+
+
+/**
+  * mdMenu Controller
+  * --------------------
+  * @desc: controls the various states and functions of mdMenu
+  * @dependencies: $rootScope, $scope, $state, $timeout, $mdMenu
+*/
+
+mdMenu.controller('mdMenu.controller', function ($rootScope, $scope, $state, $timeout, $mdMenu, CONFIG_mdMenu) {
+
+
+	  // =============================================================
+    //  Events / State Changes
+    // =============================================================
+
+        /** 
+          * 'touchmove'
+          * Prevent over-scroll on mobile devices when menu is open
+        */
+        $(document).on('touchmove',function(e){
+          if($rootScope.mdMenu.isOpen) e.preventDefault();
+        });
+
+        /** 
+          * '$stateChangeSuccess'
+          * Close menu once state change is complete
+        */
+        $rootScope.$on('$stateChangeSuccess', function(event, toState){
+        	$mdMenu.close();
+        });
+
+
+    // =============================================================
+    //  Functions
+    // =============================================================
+
+     	/** 
+          * toggleMenu()
+          * Open/close the menu based on current menu state $rootScope.mdMenu.isOpen
+        */
+        $rootScope.toggleMenu = function(){
+        	
+        	if($rootScope.mdMenu.isOpen && $rootScope.screenTaken == CONFIG_mdMenu.namespace){
+        		$mdMenu.close();
+        	} else {
+        		if(!$rootScope.screenTaken) $mdMenu.open();
+        	}
+
+        };
+
+
+        /** 
+          * closeMenu()
+          * Close the menu
+        */
+        $rootScope.closeMenu = function(){
+        	$mdMenu.close();  
+        };
+
+
+        /** 
+          * openMenu()
+          * Open the menu
+        */
+        $rootScope.openMenu = function(){ 
+        	$mdMenu.open();
+        };
+
+
+    // Initialize mdMenu with $timeout
+    $timeout($mdMenu.init);
+    
+});
+
+/**
   * mdMenu factory
   * --------------------
   * @desc: provides core functionality of mdMenu

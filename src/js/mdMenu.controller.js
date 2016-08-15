@@ -1,11 +1,11 @@
 ﻿/**
-  * fmMenu Controller
+  * mdMenu Controller
   * --------------------
-  * @desc: controls the various states and functions of fmMenu
-  * @dependencies: $rootScope, $scope, $state, $timeout, $fmMenu
+  * @desc: controls the various states and functions of mdMenu
+  * @dependencies: $rootScope, $scope, $state, $timeout, $mdMenu
 */
 
-fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $timeout, $fmMenu, CONFIG_fmMenu) {
+mdMenu.controller('mdMenu.controller', function ($rootScope, $scope, $state, $timeout, $mdMenu, CONFIG_mdMenu) {
 
 
 	  // =============================================================
@@ -17,7 +17,7 @@ fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $ti
           * Prevent over-scroll on mobile devices when menu is open
         */
         $(document).on('touchmove',function(e){
-          if($rootScope.fmMenu.isOpen) e.preventDefault();
+          if($rootScope.mdMenu.isOpen) e.preventDefault();
         });
 
         /** 
@@ -25,7 +25,7 @@ fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $ti
           * Close menu once state change is complete
         */
         $rootScope.$on('$stateChangeSuccess', function(event, toState){
-        	$fmMenu.close();
+        	$mdMenu.close();
         });
 
 
@@ -35,14 +35,14 @@ fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $ti
 
      	/** 
           * toggleMenu()
-          * Open/close the menu based on current menu state $rootScope.fmMenu.isOpen
+          * Open/close the menu based on current menu state $rootScope.mdMenu.isOpen
         */
         $rootScope.toggleMenu = function(){
         	
-        	if($rootScope.fmMenu.isOpen && $rootScope.screenTaken == CONFIG_fmMenu.namespace){
-        		$fmMenu.close();
+        	if($rootScope.mdMenu.isOpen && $rootScope.screenTaken == CONFIG_mdMenu.namespace){
+        		$mdMenu.close();
         	} else {
-        		if(!$rootScope.screenTaken) $fmMenu.open();
+        		if(!$rootScope.screenTaken) $mdMenu.open();
         	}
 
         };
@@ -53,7 +53,7 @@ fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $ti
           * Close the menu
         */
         $rootScope.closeMenu = function(){
-        	$fmMenu.close();  
+        	$mdMenu.close();  
         };
 
 
@@ -62,11 +62,11 @@ fmMenu.controller('fmMenu.controller', function ($rootScope, $scope, $state, $ti
           * Open the menu
         */
         $rootScope.openMenu = function(){ 
-        	$fmMenu.open();
+        	$mdMenu.open();
         };
 
 
-    // Initialize fmMenu with $timeout
-    $timeout($fmMenu.init);
+    // Initialize mdMenu with $timeout
+    $timeout($mdMenu.init);
     
 });

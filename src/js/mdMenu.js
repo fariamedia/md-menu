@@ -3,17 +3,17 @@
   * --------------------
 */
 
-var fmMenu = angular.module('fmMenu', ['globals']); 
+var mdMenu = angular.module('mdMenu', ['swipe']); 
 
 /**
-  * fmMenu configuration
+  * mdMenu configuration
   * --------------------
 */ 
-fmMenu.constant('CONFIG_fmMenu', { 
-  namespace: 'fm-menu',
+mdMenu.constant('CONFIG_mdMenu', { 
+  namespace: 'md-menu',
   animation: {
     duration: 400,
-    easing: 'easeInOutCubic',   
+    easing: 'easeInOutCubic',
   },
   init: {
     open: false

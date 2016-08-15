@@ -4,8 +4,9 @@
   * @desc: the main compilation file for mdMenu
 */
 
-@import "variables";
-@import "main";
+@import "md-menu/mixins";
+@import "md-menu/variables";
+@import "md-menu/main";
 
 
 // Voila.					
