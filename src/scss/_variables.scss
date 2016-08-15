@@ -1,0 +1,26 @@
+/**
+  * md-menu
+  * --------------------
+  * @dependencies: Bootstrap 4, 'mdMenu' Angular module
+*/
+
+// .md-menu
+$menu-namespace:			'md-menu';
+$menu-zindex:				1020;
+$menu-gutter-width:			30px;
+$menu-bg:					rgba(0,0,0,.9);
+
+// .md-menu ul li a
+$menu-text-align:			center;
+$menu-link-size:			2rem;
+$menu-link-weight:			300;
+$menu-link-text-transform:	uppercase;
+$menu-link-spacing:	10px;
+$menu-link-color:			#fff;
+$menu-link-color-hover:		#444;
+
+// .md-menu-toggle
+$menu-toggle-zindex:		$menu-zindex + 1;
+$menu-toggle-color:			#fff;
+$menu-toggle-color-open:	red;
+

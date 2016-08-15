@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!-- // META -->
+    <title>mdMenu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- // CSS -->
+    <link href="/dist/mdMenu.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <!-- Hotspots (for mobile swiping) -->
+    <!-- <div class="hotspot hotspot-left" ng-swipe-right="openMenu()"></div> -->
+
+    <!-- Mobile Menu -->
+    <nav class="fm-menu" ng-controller="fmMenu.controller" ng-swipe-left="closeMenu()">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">My Work</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script type="text/javascript" src="/dist/mdMenu.min.js"></script>
+</body>
+</html>
+
